@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { Text, View } from "react-native";
+import Input from "./Input";
 
-export default function App() {
+const App = () => {
+  const [response, setResponse] = useState(null);
+
+  const handleFetch = (data) => {
+    setResponse(data);
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Input onFetch={handleFetch} />
+      {response && (
+        <View
+          src={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Text
+            style={{
+              textAlign: "center",
+              fontSize: 20,
+              color: '#70726c'
+            }}
+          >
+            <pre>
+              {JSON.stringify(response, null, 2)}
+            </pre>
+          </Text>
+        </View>
+      )}
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
